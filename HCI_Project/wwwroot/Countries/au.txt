@@ -1,0 +1,6 @@
+AU:Australia|+61
+FJ:Fiji|+679
+MC:Micronesia|+691
+NZ:New Zealand|+64
+PG:Papua New Guinea|+675
+VA:Vanuatu|+678

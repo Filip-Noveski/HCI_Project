@@ -1,0 +1,82 @@
+﻿@{
+    List<OfferData> offers = ViewBag.OfferData;
+    Dictionary<Currency, string> currencies = new()
+    {
+        { Currency.Euro, "€" },
+        { Currency.USDollar, "$" },
+        { Currency.GBPound, "£" }
+    };
+    Dictionary<SearchDataAge, string> ages = new()
+    {
+        { SearchDataAge.New, "Age: New" },
+        { SearchDataAge.LessThan6Months, "Age: Less than 6 months" },
+        { SearchDataAge.LessThan1Year, "Age: Less than 1 year" },
+        { SearchDataAge.LessThan2Years, "Age: Less than 2 years" },
+        { SearchDataAge.MoreThan2Years, "Age: More than 2 years" }
+    };
+    Func<int, int, int, int, int, string> toDate = (day, month, year, hour, minute) =>
+    {
+        string ret = "Offer date: " + day.ToString();
+        ret += month switch
+        {
+            1 => " Jan ",
+            2 => " Feb ",
+            3 => " Mar ",
+            4 => " Apr ",
+            5 => " May ",
+            6 => " Jun ",
+            7 => " Jul ",
+            8 => " Aug ",
+            9 => " Sep ",
+            10 => " Oct ",
+            11 => " Nov ",
+            12 => " Dec ",
+            _ => " "
+        };
+        ret += year.ToString();
+        ret += $" {hour}:{minute}";
+        return ret;
+    };
+}
+
+<link type="text/css" rel="stylesheet" href="~/css/offers/offers_light.css" id="light-mode-specific" />
+<script type="text/javascript" src="~/js/offers/offersSearchSwapImage.js"></script>
+
+<partial name="../Partial/Pages" />
+<div class="offers-container">
+	@foreach (OfferData offer in offers)
+	{
+        string price = currencies[offer.Price?.First ?? Currency.Euro] + ' ' + offer.Price?.Second.ToString();
+        string age = ages[offer.Age];
+        string date = toDate(offer.PublishTime.Day, offer.PublishTime.Month, offer.PublishTime.Year, offer.PublishTime.Hour, offer.PublishTime.Minute);
+        List<string> images = ((List<string>)ViewBag.Paths[offer.Id]).FindAll(x => !x.EndsWith("description.txt") && !x.Contains("image."));
+        string? mainImgPath = ((List<string>)ViewBag.Paths[offer.Id]).Find(x => x.Contains("image."));
+        
+		<div class="offer-card">
+			<!--<img class="offer-img" src="" id="full-img@(offer.Id)" />-->
+            <div class="offer-img" id="full-img@(offer.Id)"></div>
+			<div class="offer-desc-container">
+				<p class="offer-paragraph"><span  class="offer-header">@offer.Name</span><span class="offer-price">@price</span></p>
+				<p class="offer-paragraph">Brand: @offer.Brand</p>
+				<p class="offer-paragraph">Part type: @offer.PartType</p>
+				<p class="offer-paragraph">@age</p>
+				<p class="offer-paragraph">@date</p>
+			</div>
+            <div class="offer-imgs-container">
+                <!--<img class="offer-img-item" src="@mainImgPath" onclick="swapImg('@offer.Id', '@mainImgPath');" id="main-img@(offer.Id)" />-->
+                <div class="offer-img-item" onclick="swapImg('@offer.Id', '@mainImgPath');" id="main-img@(offer.Id)" style="background-image: url('@mainImgPath')"></div>
+                <script type="text/javascript">
+                    var img = document.getElementById("main-img@(offer.Id)");
+                    img.click();
+                </script>
+                @foreach (string path in images)
+                {
+                    <div class="offer-img-item" onclick="swapImg('@offer.Id', '@path');" id="main-img@(offer.Id)" style="background-image: url('@path')"></div>
+                    <!--<img class="offer-img-item" src="@path" onclick="swapImg('@offer.Id', '@path')" />-->
+                }
+            </div>
+            <div class="offer-card-overlay" onclick="location.href='/Home/Offer?offerId=@(offer.Id)'"></div>
+		</div>
+	}
+</div>
+<partial name="../Partial/Pages" />

@@ -1,0 +1,10 @@
+﻿@{
+	Dictionary<string, string> countries = ViewBag.Countries;
+	Dictionary<string, string> flags = ViewBag.Flags;
+}
+
+<option class="checkout-option" value="">--Country--</option>
+@foreach (var pair in countries)
+{
+	<option class="checkout-option" value="@(pair.Key)|@(pair.Value.Split('|')[1])">@pair.Value.Split('|')[0]</option>
+}

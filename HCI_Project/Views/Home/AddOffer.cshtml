@@ -1,0 +1,127 @@
+﻿@{
+	ViewData["Title"] = "Add Offer";
+}
+
+<link rel="stylesheet" href="~/css/addOffer/addOffer_light.css" asp-append-version="true" id="light-mode-specific" />
+
+<script type="text/javascript" src="~/js/file/fileInputChange.js"></script>
+<script type="text/javascript" src="~/js/file/galleryImageAdd.js"></script>
+<script type="text/javascript" src="~/js/file/galleryImageRemove.js"></script>
+<script type="text/javascript" src="~/js/offers/addOfferEntry.js"></script>
+<script type="text/javascript" src="~/js/offers/showInfo.js"></script>
+
+
+<h1>Set offer information</h1>
+
+<div class="offer-info-main">
+	<div class="offer-info-item">
+		<p class="offer-info-head">Item Brand<span class="info-hover" onclick="showInfo('Item Brand')"></span></p><input class="offer-info-input" id="input-brand" />		
+	</div>
+	<p class="invalid-field" id="brand-error"></p>
+	<div class="offer-info-item">
+		<p class="offer-info-head">Item Name<span class="info-hover" onclick="showInfo('Item Name')"></span></p><input class="offer-info-input" id="input-name" />		
+	</div>
+	<p class="invalid-field" id="name-error"></p>
+	<div class="offer-info-item">
+		<p class="offer-info-head">Price<span class="info-hover" onclick="showInfo('Price')"></span></p><select class="offer-info-input-currency" id="input-price-cur" style="padding: 3.5px 0;">
+			<option class="offer-info-option" value="none"></option>
+			<option class="offer-info-option" value="eur">&euro;</option>
+			<option class="offer-info-option" value="gbp">&pound;</option>
+			<option class="offer-info-option" value="usd">$</option>
+		</select><input class="offer-info-input-moneyvalue" id="input-price-num" />		
+	</div>
+	<p class="invalid-field" id="price-error"></p>
+	<div class="offer-info-item">
+		<p class="offer-info-head">Item Type<span class="info-hover" onclick="showInfo('Item Type')"></span></p><select class="offer-info-input" id="input-type" style="padding: 3.5px 0;">
+			<option class="offer-info-option" value="none"></option>
+			<option class="offer-info-option" value="cpu">Central Processing Unit</option>
+			<option class="offer-info-option" value="graphicsCard">Graphics Card</option>
+			<option class="offer-info-option" value="ram">Random Access Memory</option>
+			<option class="offer-info-option" value="hdd">Hard Disk Drive</option>
+			<option class="offer-info-option" value="ssd">Solid State Drive</option>
+			<option class="offer-info-option" value="keyboard">Keyboard</option>
+			<option class="offer-info-option" value="monitor">Monitor</option>
+			<option class="offer-info-option" value="mouse">Mouse</option>
+			<option class="offer-info-option" value="speakers">Speakers</option>
+		</select>
+	</div>
+	<p class="invalid-field" id="type-error"></p>
+	<div class="offer-info-item">
+		<p class="offer-info-head">Use and age<span class="info-hover" onclick="showInfo('Use and age')"></span></p><select class="offer-info-input" id="input-age" style="padding: 3.5px 0;">
+			<option class="offer-info-option" value="none"></option>
+			<option class="offer-info-option" value="new">New</option>
+			<option class="offer-info-option" value="lt6m">Used (&lt;6 months)</option>
+			<option class="offer-info-option" value="lt1y">Used (&lt;1 year)</option>
+			<option class="offer-info-option" value="lt2y">Used (&lt;2 years)</option>
+			<option class="offer-info-option" value="mt2y">Used (&gt;2 years)</option>
+		</select>
+	</div>
+	<p class="invalid-field" id="age-error"></p>
+	<div class="offer-info-item">
+		<p class="offer-info-head">Main image<span class="info-hover" onclick="showInfo('Main Image')"></span></p><input onclick="$('#main-img').click();" class="offer-info-file-input-text" id="file-path" readonly style="cursor: pointer" /><a onclick="$('#main-img').click();" class="offer-info-file-input-btn">Choose file</a>
+		<input type="file" id="main-img" onchange="fileInputChange()" style="display: none" />
+	</div>
+	<p class="invalid-field" id="image-error"></p>
+	<div class="offer-info-item-gallery">
+		<p class="offer-info-head-gallery">Gallery Images<span class="info-hover" onclick="showInfo('Gallery Images')" style="margin-right: 0"></span></p>
+		<a class="offer-info-btn-gallery" onclick="addImage()">Add Image</a>
+		@for (int i = 1; i <= 10; i++)
+		{
+			<div class="offer-info-img-gallery" id="img-path@(i)">
+				<p class="offer-info-img-path-gallery" id="img-path-text@(i)">Text</p>
+				<a class="offer-info-img-remove-gallery" onclick="imgRemove(@i)">Remove</a>
+				<input type="file" id="gallery-input@(i)" onchange="imageOnchange(@i)" style="display: none" />
+			</div>
+		}
+	</div>
+	<div class="offer-info-item">
+		<p class="offer-info-desc-head">Description<span class="info-hover" onclick="showInfo('Description')" style="margin-right: 68.8%"></span></p>
+		<textarea class="offer-info-desc-input" id="input-desc"></textarea>
+	</div>
+	<p class="invalid-field" id="description-error"></p>
+	<div class="offer-info-item">
+		<a class="offer-info-btn-submit" onclick="addOfferEntry()">Submit</a>
+	</div>
+</div>
+<style>
+	.add-offer-info {
+		text-align: center;
+		margin-top: 64px;
+	}
+
+	.add-offer-btn {
+		width: 144px;
+		margin: 24px calc(50% - 72px);
+	}
+
+	.add-offer-info-head {
+		text-align: center;
+		margin-top: 32px;
+	}
+
+	.add-offer-info-body {
+		text-align: center;
+		margin-top: 6px;
+	}
+</style>
+
+<div class="detailed-search-background" style="display: none;" id="result-box">
+	<div class="detailed-search-box">
+		<h3 class="add-offer-info" id="text">
+			The item has been added successfully.
+		</h3>
+		<a class="add-offer-btn btn-shared" asp-controller="Home" asp-action="Index">OK</a>
+	</div>
+</div>
+
+<div class="detailed-search-background" style="display: none;" id="info-box">
+	<div class="detailed-search-box">
+		<h4 class="add-offer-info-head" id="info-head">
+
+		</h4>
+		<h5 class="add-offer-info-body" id="info-text">
+			
+		</h5>
+		<a class="add-offer-btn btn-shared" href="#" onclick="document.getElementById('info-box').style.display = 'none'; return false;">OK</a>
+	</div>
+</div>

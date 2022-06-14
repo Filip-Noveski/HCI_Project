@@ -1,0 +1,101 @@
+﻿.checkout-section {
+    padding: 12px;
+    display: inline-block;
+    width: 49.5%;
+    height: 500px;
+    overflow: auto;
+    border: 1px solid #84A296;
+    border-radius: 8px;
+}
+
+.checkout-input {
+    background: linear-gradient(#0A0A0A 0%, #121212 100%);
+    border-color: #282828;
+    height: 36px;
+    color: #BBBBBB;
+    width: 44%;
+    display: inline-block;
+    font-size: 18px;
+    border-radius: 6px;
+    margin: 2%;
+}
+
+    select.checkout-input option.checkout-option {
+        background-color: #181818;
+        color: #DDDDDD;
+    }
+
+.checkout-phone-code-select {
+    background: linear-gradient(#0A0A0A 0%, #121212 100%);
+    border-color: #282828;
+    color: #BBBBBB;
+    height: 36px;
+    width: calc(24% - 54px);
+    display: inline-block;
+    font-size: 18px;
+    border-radius: 0;
+    margin: 2% 0 2% 0;
+    vertical-align: top;
+}
+
+    .checkout-phone-code-select option.checkout-option {
+        background: #181818;
+        color: #DDDDDD;
+    }
+
+.checkout-phone-number-input {
+    background: linear-gradient(#0A0A0A 0%, #121212 100%);
+    border-color: #282828;
+    color: #BBBBBB;
+    height: 36px;
+    width: 68.5%;
+    display: inline-block;
+    font-size: 18px;
+    border-radius: 0 6px 6px 0;
+    margin: 2% 2% 2% 0;
+    vertical-align: top;
+}
+
+.item-container-item {
+    display: inline-block;
+    width: 95%;
+    margin: 2.5%;
+    height: 128px;
+    border: 1px solid;
+    border-radius: 5px;
+    transition: 0.5s all;
+    overflow: hidden;
+}
+
+.item-contaner-img {
+    display: inline-block;
+    margin: 4px;
+    height: 120px;
+    width: 213px;
+    background-color: rgba(96, 96, 96, 0.5);
+    border-radius: 4px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.item-container-info {
+    vertical-align: top;
+    display: inline-block;
+    width: calc(100% - 235px);
+    margin: 4px 0;
+    padding: 0 4px;
+}
+
+.checkout-flag {
+    width: 54px;
+    height: 36px;
+    display: inline-block;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #888888;
+    border-radius: 6px 0 0 6px;
+    border: 2px inset #282828;
+    margin: 2% 0 calc(2% - 4px) 2%;
+}

@@ -1,0 +1,63 @@
+﻿@{
+
+}
+
+<script type="text/javascript" src="~/js/offers/offersScroll.js"></script>
+
+<div class="ad-section">
+    <p class="ad-scroll-btn ad-scroll-btn-left" onclick="scrollPrev(4);">&#10216;</p>
+    <div class="ad-container">
+        <div class="ad-container-flex">
+            @for (int i = 0; i <= 14 && i <= ViewBag.Offers.Count - 1; i++)
+            {
+                string? imgPath = ((List<string>)ViewBag.Paths[ViewBag.Offers[i].Id]).Find(x => x.Contains("image"));
+                string price = "Price: " + ViewBag.Offers[i].Price.First switch
+                {
+                    Currency.Euro => "€",
+                    Currency.USDollar => "$",
+                    Currency.GBPound => "£",
+                    _ => ""
+                } + ' ' + ViewBag.Offers[i].Price.Second.ToString();
+                string age = @ViewBag.Offers[i].Age switch
+                {
+                    SearchDataAge.New => "Age: New",
+                    SearchDataAge.LessThan6Months => "Age: Less than 6 months",
+                    SearchDataAge.LessThan1Year => "Age: Less than 1 year",
+                    SearchDataAge.LessThan2Years => "Age: Less than 2 years",
+                    SearchDataAge.MoreThan2Years => "Age: More than 2 years",
+                    _ => ""
+                };
+                string date = "Offer date: " + ViewBag.Offers[i].PublishTime.Day.ToString() + ' ' +
+                    ViewBag.Offers[i].PublishTime.Month switch
+                    {
+                        1 => "Jan",
+                        2 => "Feb",
+                        3 => "Mar",
+                        4 => "Apr",
+                        5 => "May",
+                        6 => "Jun",
+                        7 => "Jul",
+                        8 => "Aug",
+                        9 => "Sep",
+                        10 => "Oct",
+                        11 => "Nov",
+                        12 => "Dec",
+                        _ => ""
+                    } + ' ' +
+                    ViewBag.Offers[i].PublishTime.Year.ToString() + ", " +
+                    ViewBag.Offers[i].PublishTime.Hour.ToString() + ':' +
+                    ViewBag.Offers[i].PublishTime.Minute.ToString();
+                <div class="advert-card" id="ad-card@(i)" onclick="location.href='/Home/Offer?offerId=@(ViewBag.Offers[i].Id)'">
+                    <div class="ad-card-img" style="background-image: url('@imgPath')"></div>
+                    <p class="ad-card-heading">@ViewBag.Offers[i].Name</p>
+                    <p class="ad-card-info">@age</p>
+                    <p class="ad-card-info">@date</p>
+                    <p class="ad-card-info">@price</p>
+                </div>
+            }
+        </div>
+    </div>
+    <p class="ad-scroll-btn ad-scroll-btn-right" onclick="scrollNext(@Math.Min(ViewBag.Offers.Count, 15), 4);">&#10217;</p>
+</div>
+
+<script type="text/javascript" src="~/js/offers/offersInit.js"></script>

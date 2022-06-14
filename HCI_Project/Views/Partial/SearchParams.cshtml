@@ -1,0 +1,26 @@
+﻿@{
+	SearchData data = ViewBag.SearchData;
+	Dictionary<string, string>? searchParams = (Dictionary<string, string>?)ViewData["search-data"]!;
+	Dictionary<string, string> imgPaths = new()
+	{
+		{ "Brand:", "brand.svg" },
+		{ "Name:", "item.svg" },
+		{ "Part type:", "group.svg" },
+		{ "Price range:", "price-range.svg" }
+	};
+}
+
+<div class="search-params-container" onclick="showDetailedSearch()">
+	<ul class="search-params">
+		@foreach (var param in searchParams)
+		{
+			string val = param.Value;
+			if (val == string.Empty || val.ToLower() == "none" || val.EndsWith("0 → ∞"))
+			{
+				continue;
+			}
+			<li class="search-param"><span class="search-param-header"><img class="inline-icon" src="~/Images/Icons/@(imgPaths[param.Key])" /> @param.Key</span> @param.Value</li>
+		}
+	</ul>
+	<p>&nbsp;<span class="search-params-change-btn">Change search parameters</span></p>
+</div>

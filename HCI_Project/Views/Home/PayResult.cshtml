@@ -1,0 +1,36 @@
+﻿@{
+	ViewData["Title"] = "Result";
+	string res = ViewBag.Result;
+}
+
+<style>
+	.pay-res-info {
+		text-align: center;
+		margin-top: 64px;
+	}
+
+	.pay-res-btn {
+		width: 144px;
+		margin: 24px calc(50% - 72px);
+	}
+</style>
+
+<div class="detailed-search-background">
+	<div class="detailed-search-box">
+		@if (res == "success")
+		{
+			<h3 class="pay-res-info">
+				The transaction was successful.<br />
+				Thank you for your purchase.
+			</h3>
+		}
+		else
+		{
+			<h3 class="pay-res-info">
+				The transaction failed.<br />
+				Please try again later.
+			</h3>
+		}
+		<a class="pay-res-btn btn-shared" asp-controller="Home" asp-action="Index">OK</a>
+	</div>
+</div>

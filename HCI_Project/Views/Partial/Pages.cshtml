@@ -1,0 +1,44 @@
+﻿@{
+    int page = ViewBag.Page;
+    int pagesCount = ViewBag.PagesCount;
+    int startPage = Math.Max(1, page - 2);
+    int endPage = Math.Min(page + 2, pagesCount);
+    string script = ViewBag.JS;
+}
+
+<div class="pages-container">
+    <div class="page-btn" onclick="@script.Replace("@page", (page - 1).ToString())" id="pages-back">&#10216</div>
+    @if (startPage != 1)
+    {
+        <div class="page-btn" onclick="@script.Replace("@page", "1")">1</div>
+        <div class="page-dots"> . . . </div>
+    }
+    @for (int i = startPage; i <= endPage; i++)
+    {
+        if (i == page)
+        {
+            <div class="page-btn" style="background-color: rgba(255, 255, 255, 0.25)">@i</div>
+        }
+        else
+        {
+            <div class="page-btn" onclick="@script.Replace("@page", i.ToString())">@i</div>
+        }
+    }
+    @if (endPage != pagesCount)
+    {
+        <div class="page-dots"> . . . </div>
+        <div class="page-btn" onclick="@script.Replace("@page", @pagesCount.ToString())">@pagesCount</div>
+    }
+    <div class="page-btn" onclick="@script.Replace("@page", (page + 1).ToString())" id="pages-forward">&#10217</div>
+</div>
+
+<script type="text/javascript">
+    var back = document.getElementById("pages-back");
+    var forward = document.getElementById("pages-forward");
+    if (@(page) == 1) {
+        back.onclick = "";
+    }
+    if (@(page) == @(endPage)) {
+        forward.onclick = "";
+    }
+</script>

@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<link rel="stylesheet" href="~/css/home/home_light.css" asp-append-version="true" id="light-mode-specific" />
+
+<partial name="../Partial/SearchBar" />
+
+<partial name="../Partial/AdSection" />
+
+<p style="font-size: 14pt; float: right; margin: 24px 110px;">
+    Do you want to sell a computer part? 
+    <a class="btn-shared" asp-controller="Home" asp-action="AddOffer" style="margin-left: 12px">Add an Offer</a>
+</p>

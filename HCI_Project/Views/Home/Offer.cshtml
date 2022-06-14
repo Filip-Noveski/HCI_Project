@@ -1,0 +1,166 @@
+﻿@{
+	ViewData["Title"] = $"View Offer - {((OfferData)ViewData["offer-data"]!).Name}";
+	OfferData offerData = (OfferData)ViewData["offer-data"]!;
+	List<string> gallery = ((List<string>)ViewData["offer-paths"]!).FindAll(x => x.Contains("gallery"));
+	string? main = ((List<string>)ViewData["offer-paths"]!).Find(x => x.Contains("image"));
+	string? description = ViewBag.WebRootPath + ((List<string>)ViewData["offer-paths"]!).Find(x => x.Contains("description"));
+	string fallbackDescription = System.IO.Path.Combine(ViewBag.WebRootPath, "fallbackData/description.txt");
+	string finalDescription;
+	bool isByUser = ViewBag.IsByUser;
+	if (File.Exists(description))
+	{ 
+		finalDescription = File.ReadAllText(description); 
+	}
+	else
+	{
+		finalDescription = File.ReadAllText(fallbackDescription); 
+	}
+	char currency = offerData.Price?.First switch
+	{
+		Currency.Euro => '€',
+		Currency.GBPound => '£',
+		Currency.USDollar => '$',
+		_ => ' '
+	};
+	string age = @offerData.Age switch
+        {
+            SearchDataAge.New => "New",
+            SearchDataAge.LessThan6Months => "Less than 6 months",
+            SearchDataAge.LessThan1Year => "Less than 1 year",
+            SearchDataAge.LessThan2Years => "Less than 2 years",
+            SearchDataAge.MoreThan2Years => "More than 2 years",
+            _ => ""
+        };
+	string date = offerData.PublishTime.Day.ToString() + ' ' +
+        offerData.PublishTime.Month switch
+        {
+            1 => "Jan",
+            2 => "Feb",
+            3 => "Mar",
+            4 => "Apr",
+            5 => "May",
+            6 => "Jun",
+            7 => "Jul",
+            8 => "Aug",
+            9 => "Sep",
+            10 => "Oct",
+            11 => "Nov",
+            12 => "Dec",
+            _ => ""
+        } + ' ' +
+        offerData.PublishTime.Year.ToString() + ", " +
+        offerData.PublishTime.Hour.ToString() + ':' +
+        offerData.PublishTime.Minute.ToString();
+}
+
+<script type="text/javascript" src="~/js/viewOffer/offerSwapImage.js"></script>
+<script type="text/javascript" src="~/js/viewOffer/offerScrollMainImage.js"></script>
+<script type="text/javascript" src="~/js/viewOffer/offerScrollGalleryImages.js"></script>
+<script type="text/javascript" src="~/js/cart/addToCart.js"></script>
+<script type="text/javascript" src="~/js/offers/takeDownOffer.js"></script>
+<link type="text/css" rel="stylesheet" href="~/css/offer/offer_light.css" asp-append-version="true" id="light-mode-specific" />
+
+<section class="offer-section-container" id="info">
+	<div class="offer-container-images-all">
+		<div class="offer-container-images">
+			<div class="offer-image-scroll-btn offer-scroll-btn-left" onclick="scrollPrevImage()">&#10216;</div>
+			<div class="offer-image-main-wrapper">
+				<div class="offer-image-main-container" id="full-img0"></div>
+			</div>
+			<div class="offer-image-scroll-btn offer-scroll-btn-right" onclick="scrollNextImage(@gallery.Count)">&#10217;</div>
+		</div>
+		<div class="offer-container-images">
+			<div class="offer-gallery-scroll-btn offer-scroll-btn-left" onclick="scrollPrevGallery(5)">&#10216;</div>
+			<div class="offer-gallery-container">
+				<div class="offer-gallery-image" style="background-image: url('@main')" id="main-img" onclick="swapImg('0', '@main')"></div>
+				@for (int i = 0; i <= gallery.Count - 1; i++)
+				{
+					<div class="offer-gallery-image" style="background-image: url('@gallery[i]')" onclick="swapImg('0', '@gallery[i]')" id="img-gallery@(i)"></div>
+				}
+				<script type="text/javascript">
+					var div = document.getElementById('main-img');
+					div.click();
+					for (var i = 4; i <= @gallery.Count - 1; i++) {
+						var img = document.getElementById(`img-gallery${i}`);
+						img.style.display = "none";
+						img.style.width = "0px";
+					}
+				</script>
+			</div>
+			<div class="offer-gallery-scroll-btn offer-scroll-btn-right" onclick="scrollNextGallery(@gallery.Count, 5)">&#10217;</div>
+		</div>
+	</div>
+	<div class="offer-container-info">
+		<div class="offer-container-info-flex">
+			<div>
+				<p class="offer-header">@offerData.Name</p>
+				<p class="offer-info-paragraph"><b>Brand:</b> @offerData.Brand</p>
+				<p class="offer-info-paragraph"><b>Age:</b> @age</p>
+				<p class="offer-info-paragraph"><b>Part Type:</b> @offerData.PartType.ToString()</p>
+				<p class="offer-info-paragraph"><b>Publish Time:</b> @date</p>
+			</div>
+			<div>
+				@if (isByUser)
+				{
+					<a class="btn-shared" href="#" style="width: 188px; margin: 4px" onclick="document.getElementById('prompt-box').style.display = 'inline-block'; return false;">
+						<img class="inline-icon" src="~/Images/Icons/take_down.svg" />
+						Take Down Offer
+					</a>
+				}
+				else
+				{
+					<h4>@currency @offerData.Price?.Second.ToString()</h4>
+					<a class="btn-shared" asp-controller="Home" asp-action="Checkout" asp-route-item="@(offerData.Id)" style="width: 188px; margin: 4px">
+						<img class="inline-icon" src="~/Images/Icons/buy.svg" />
+						Buy item
+					</a>
+					<a class="btn-shared" href="#" style="width: 188px; margin: 4px" onclick="addToCart('@(offerData.Id)'); return false;">
+						<img class="inline-icon" src="~/Images/Icons/add_to_cart.svg" />
+						Add to cart
+					</a>
+				}
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="offer-description" id="description">
+	<h5>Offer description:</h5>
+	<p>@Html.Raw(finalDescription.Replace("\n", "<br />"))</p>
+</section>
+
+@if (isByUser)
+{
+	<style>
+		.view-offer-info {
+			text-align: center;
+			margin-top: 64px;
+		}
+
+		.view-offer-btn {
+			width: 144px;
+			margin: 24px calc(50% - 72px);
+		}
+	</style>
+
+	<div class="detailed-search-background" style="display: none;" id="result-box">
+		<div class="detailed-search-box">
+			<h3 class="view-offer-info" id="text">
+				The item has been removed successfully.
+			</h3>
+			<a class="view-offer-btn btn-shared" asp-controller="Home" asp-action="Index">OK</a>
+		</div>
+	</div>
+
+	<div class="detailed-search-background" style="display: none;" id="prompt-box">
+		<div class="detailed-search-box">
+			<h3 class="view-offer-info" id="text">
+				Are you sure you want to remove this item.
+			</h3>
+			<a class="view-offer-btn btn-shared" href="#" onclick="takeDownOffer('@(offerData.Id)'); return false;" style="margin-right: 24px; margin-left: calc(50% - 172px);">Yes, Remove it</a>
+			<a class="view-offer-btn btn-shared" href="#" onclick="document.getElementById('prompt-box').style.display = 'none'; return false;" style="margin-left: 24px; margin-right: calc(50% - 172px);">No, Cancel</a>
+		</div>
+	</div>
+}
+
+<partial name="../Partial/AdSection" />

@@ -1,0 +1,11 @@
+AF:South Africa|+27
+AG:Algeria|+213
+DC:DR Congo|+243
+ET:Ethiopia|+251
+GH:Ghana|+233
+KY:Kenya|+254
+MI:Mali|+223
+MR:Morocco|+212
+NG:Nigeria|+234
+SN:Senegal|+221
+TZ:Tanzania|+255

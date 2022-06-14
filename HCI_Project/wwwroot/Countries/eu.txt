@@ -1,0 +1,45 @@
+AT:Austria|+43
+AL:Albania|+355
+AN:Andorra|+376
+BE:Belgium|+32
+BG:Bulgaria|+359
+BH:Bosnia and Herzegovina|+387
+BY:Belarus|+375
+CH:Switzerland|+41
+CR:Croatia|+385
+CY:Cyprus|+357
+CZ:Czechia|+420
+DE:Germany|+49
+DK:Denmark|+45
+ES:Estonia|+372
+FI:Finland|+358
+FR:France|+33
+GR:Greece|+30
+HU:Hunagry|+36
+IR:Ireland|+353
+IS:Iceland|+354
+IT:Italy|+39
+KS:Kosovo|+383
+LI:Lichtenstein|+423
+LT:Lithuania|+370
+LU:Luxembourg|+352
+LV:Latvia|+371
+MO:Monaco|+377
+MD:Moldova|+373
+MK:Macedonia|+389
+MN:Montenegro|+382
+MT:Malta|+356
+NL:Netherlands|+31
+NO:Norway|+47
+PL:Poland|+48
+PO:Portugal|+351
+RO:Romania|+40
+RS:Serbia|+381
+RU:Russia|+7
+SE:Sweden|+46
+SP:Spain|+34
+SV:Slovakia|+421
+SL:Slovenia|+386
+SM:San Marino|+378
+UA:Ukraine|+380
+UK:United Kingdom|+44

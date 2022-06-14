@@ -1,0 +1,20 @@
+﻿@{
+	ViewData["Title"] = "View Available Offers";
+}
+
+<partial name="../Partial/SearchBar" />
+
+<partial name="../Partial/SearchParams" />
+
+@if (ViewBag.OfferData.Count == 0)
+{
+	<link type="text/css" rel="stylesheet" href="~/css/offers/offers_light.css" id="light-mode-specific" />
+    <h4 style="margin-left: 98px; margin-right: 114px">
+		There are currenly no items on offer that match your search. Please try again later.
+		<a class="btn-shared" href="/Home/OffersAll" style="float: right"><img class="inline-icon" src="~/Images/Icons/view-all.svg" /> View all offers</a>
+	</h4>
+}
+else
+{
+	<partial name="../Partial/Offers" />
+}

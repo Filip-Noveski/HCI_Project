@@ -1,0 +1,13 @@
+HK:Hong Kong|+852
+ID:India|+91
+IN:Indonesia|+62
+JA:Japan|+81
+MY:Malaysia|+60
+NK:North Korea|+850
+PC:China|+86
+PH:Philippines|+63
+RU:Russia|+7
+SI:Singapore|+65
+SK:South Korea|+82
+TH:Thailand|+66
+VI:Vietnam|+84

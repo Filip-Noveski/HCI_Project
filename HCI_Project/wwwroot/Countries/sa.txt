@@ -1,0 +1,11 @@
+AR:Argentina|+54
+BO:Bolivia|+591
+BR:Brazil|+55
+CI:Chile|+56
+CO:Colombia|+57
+EC:Ecuador|+593
+GU:Guyana|+592
+PE:Peru|+51
+SU:Suriname|+597
+UR:Uruguay|+598
+VE:Venezuela|+58

@@ -1,0 +1,13 @@
+
+# DIRECTORIES
+/.vs
+
+# PROJECT FILES
+/*.sln
+/HCI_Project/bin
+/HCI_Project/obj/Debug
+/HCI_Project_DB/bin
+/HCI_Project_DB/obj/Debug
+
+# UPLOADED FILES
+/HCI_Project/wwwroot/offerData/*

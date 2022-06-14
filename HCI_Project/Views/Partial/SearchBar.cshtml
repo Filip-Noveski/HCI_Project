@@ -1,0 +1,54 @@
+﻿@{
+
+}
+
+<form class="search-box" action="/Home/OffersSearch">
+    <input class="search-input" placeholder="Search..." type="text" id="search-bar" name="Name" /><!--
+    --><div class="search-button">
+		<img class="inline-icon" src="~/Images/Icons/search.svg" />
+		<input type="submit" class="search-button-text" name="" value="Search" />
+	</div>
+    <a class="detailed-search-button" onclick="showDetailedSearch()"><img class="inline-icon" src="~/Images/Icons/detailed-search.svg" /> Open detailed search</a>
+</form>
+
+<div class="detailed-search-background" id="detailed-search" style="display: none">
+    <div class="detailed-search-box">
+        <h2>Detailed search:<span class="detailed-search-close" onclick="hideDetailedSearch()">X</span></h2>
+        
+	    <div class="detailed-search-item">
+		    <p class="detailed-search-item-head"><img class="inline-icon" src="~/Images/Icons/brand.svg" /> Item Brand</p><input class="detailed-search-input" id="input-brand" placeholder="Item brand..." />		
+	    </div>
+	    <div class="detailed-search-item">
+		    <p class="detailed-search-item-head"><img class="inline-icon" src="~/Images/Icons/item.svg" /> Item Name</p><input class="detailed-search-input" id="input-name" placeholder="Item name..." />		
+	    </div>
+		<div class="detailed-search-item">
+			<p class="detailed-search-item-head"><img class="inline-icon" src="~/Images/Icons/group.svg" /> Item Type</p><select class="detailed-search-input" id="input-type" style="padding: 3.5px 0;">
+				<option class="detailed-search-option" value="none"></option>
+				<option class="detailed-search-option" value="cpu">Central Processing Unit</option>
+				<option class="detailed-search-option" value="graphicsCard">Graphics Card</option>
+				<option class="detailed-search-option" value="ram">Random Access Memory</option>
+				<option class="detailed-search-option" value="hdd">Hard Disk Drive</option>
+				<option class="detailed-search-option" value="ssd">Solid State Drive</option>
+				<option class="detailed-search-option" value="keyboard">Keyboard</option>
+				<option class="detailed-search-option" value="monitor">Monitor</option>
+				<option class="detailed-search-option" value="mouse">Mouse</option>
+				<option class="detailed-search-option" value="speakers">Speakers</option>
+			</select>
+		</div>
+		<div class="detailed-search-item">
+			<p class="detailed-search-item-head"><img class="inline-icon" src="~/Images/Icons/price-range.svg" /> Price</p><select class="detailed-search-input-currency" id="input-price-cur" style="padding: 3.5px 0;">
+				<option class="detailed-search-option" value="none"></option>
+				<option class="detailed-search-option" value="eur">&euro;</option>
+				<option class="detailed-search-option" value="gbp">&pound;</option>
+				<option class="detailed-search-option" value="usd">$</option>
+			</select><input class="detailed-search-input-moneyvalue" id="input-price-from" style="border-radius: 0" placeholder="From..." /><input class="detailed-search-input-moneyvalue" id="input-price-to" placeholder="To..." />	
+		</div>
+		<div class="detailed-search-item">
+			<a class="detailed-search-btn-submit" onclick="searchDetailed()">Search</a>
+		</div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/search/searchSimple.js"></script>
+<script type="text/javascript" src="~/js/search/searchDetailed.js"></script>
+<script type="text/javascript" src="~/js/search/detailedSearchBox.js"></script>

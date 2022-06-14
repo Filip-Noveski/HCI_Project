@@ -1,0 +1,37 @@
+﻿@{
+	List<OfferData> offers = ViewBag.Offers;
+	Dictionary<long, List<string>> paths = ViewBag.Paths;
+	Dictionary<Currency?, char> currencies = new()
+	{
+		{ Currency.Euro, '€' },
+		{ Currency.GBPound, '£' },
+		{ Currency.USDollar, '$' }
+	};
+	int i = 0;
+}
+
+@if (offers.Count != 0)
+{
+	@foreach (OfferData offer in offers)
+	{
+		string? mainImg = paths[offer.Id].Find(x => x.Contains("image"));
+		<div class="hover-container-item" id="item@(i)">
+			<div class="hover-contaner-img" style="background-image: url('@(mainImg)');"></div>
+			<div class="hover-container-info">
+				<h5 style="height: 50px; overflow: hidden; margin-bottom: 2px;">@offer.Name</h5>
+				<p>@offer.Brand</p>
+				@currencies[offer.Price?.First] @offer.Price?.Second
+				<span style="float: right; cursor: pointer; font-size: 16pt" onclick="removeFromCart('@(offer.Id)', '@(i++)')">X</span>
+			</div>
+		</div>
+	}
+
+	<a class="btn-shared" asp-controller="Home" asp-action="Checkout" asp-route-item="cart" style="width: 188px; float: right; margin: 12px;">
+		<img class="inline-icon" src="~/Images/Icons/buy.svg" />
+		Checkout
+	</a>
+}
+else
+{
+	<h5>You do not have any items in the cart at the moment.</h5>
+}

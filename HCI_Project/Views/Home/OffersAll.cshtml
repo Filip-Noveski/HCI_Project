@@ -1,0 +1,16 @@
+﻿@{
+	ViewData["Title"] = "View Available Offers";
+}
+
+<partial name="../Partial/SearchBar" />
+
+@if (ViewBag.OfferData.Count == 0)
+{
+	<h4 style="margin-left: 98px;">
+		There are currenly no items on offer. Please try again later.
+	</h4>
+}
+else
+{
+	<partial name="../Partial/Offers" />
+}

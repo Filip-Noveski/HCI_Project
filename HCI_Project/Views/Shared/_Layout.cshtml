@@ -1,0 +1,98 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    bool toolbarSellLoggedOut = true;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HCI_Project</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/HCI_Project.styles.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="~/css/site_light.css" asp-append-version="true" id="light-mode" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/cart/removeFromCart.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 toolbar-themed fixed-top">
+            <div class="container-fluid" style="width: 80%; margin-left: 10%;">
+                <a class="navbar-brand toolbar-item-themed" asp-area="" asp-controller="Home" asp-action="Index" asp-route-mode="@ViewBag.LightMode">HCI_Project</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link  toolbar-item-themed" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  toolbar-item-themed" asp-area="" asp-controller="Home" asp-action="OffersAll">Offers</a>
+                        </li>
+                        @if (toolbarSellLoggedOut || SignInManager.IsSignedIn(User))
+                        {
+                            <li>
+                                <a class="nav-link toolbar-item-themed" asp-area="" asp-controller="Home" asp-action="AddOffer">Sell item</a>
+                            </li>
+                        }
+                    </ul>
+                    <partial name="../Partial/Cart" />
+                    <div class="light-mode-back">
+                        <div class="light-mode-toggle" onclick="toggleMode()" id="light-mode-toggle"></div>
+                    </div>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container" style="padding-top: 64px;">
+        <main role="main" class="pb-3">
+            @RenderBody()
+
+            <!--Terms and Privacy popup-->
+            <div class="terms-popup" id="terms-box">
+                By using this website and our services,
+                you agree to our 
+                <a class="terms-link" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+                and
+                <a class="terms-link" asp-controller="Home" asp-action="TermsConditions">Terms & Conditions</a>.
+                <br />
+                <a class="btn-shared" href="#" onclick="confirmTermsAgree()" style="width: 96px; float: right; margin: 16px;">OK</a>
+            </div>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <a class="footer-link" asp-controller="Home" asp-action="Index">Home</a>
+            <a class="footer-link" asp-controller="Home" asp-action="OffersAll">Offers</a>
+            <a class="footer-link" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+            <a class="footer-link" asp-controller="Home" asp-action="TermsConditions">Terms & Conditions</a>
+            <br />
+            &copy; 2022 - HCI_Project - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/js/toolbar/toggleMode.js"></script>
+    <script src="~/js/on-load/setTheme.js"></script>
+    <script src="~/js/on-load/privacyAndTerms.js"></script>
+    <script type="text/javascript">
+        function confirmTermsAgree() {
+            localStorage["privacyAndTerms"] = "true";
+            document.getElementById("terms-box").style.display = "none";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+﻿@{
+	List<OfferData> offers = ViewBag.Offers;
+	Dictionary<long, List<string>> paths = ViewBag.Paths;
+	Dictionary<Currency?, char> currencies = new()
+	{
+		{ Currency.Euro, '€' },
+		{ Currency.GBPound, '£' },
+		{ Currency.USDollar, '$' }
+	};
+	int i = 0;
+}
+
+<h3>Total to pay: @ViewBag.TotalPrice</h3>
+	@foreach (OfferData offer in offers)
+	{
+		string? mainImg = paths[offer.Id].Find(x => x.Contains("image"));
+		<div class="item-container-item" id="item@(i)">
+			<div class="item-contaner-img" style="background-image: url('@(mainImg)');"></div>
+			<div class="item-container-info">
+				<h5 style="height: 50px; overflow: hidden; margin-bottom: 2px;">@offer.Name</h5>
+				<p>@offer.Brand</p>
+				@currencies[offer.Price?.First] @offer.Price?.Second
+			</div>
+		</div>
+	}

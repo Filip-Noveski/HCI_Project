@@ -1,0 +1,10 @@
+C:\Users\ASUS\source\repos\HCI_Project\HCI_ProjectDB\bin\Debug\HCI_ProjectDB.dacpac
+C:\Users\ASUS\source\repos\HCI_Project\HCI_ProjectDB\bin\Debug\HCI_ProjectDB.dll
+C:\Users\ASUS\source\repos\HCI_Project\HCI_ProjectDB\bin\Debug\HCI_ProjectDB.pdb
+C:\Users\ASUS\source\repos\HCI_Project\HCI_ProjectDB\obj\Debug\HCI_ProjectDB.sqlproj.AssemblyReference.cache
+C:\Users\ASUS\source\repos\HCI_Project\HCI_ProjectDB\obj\Debug\HCI_ProjectDB.dll
+C:\Users\ASUS\source\repos\HCI_Project\HCI_ProjectDB\obj\Debug\HCI_ProjectDB.pdb
+C:\Users\ASUS\source\repos\HCI_Project\HCI_ProjectDB\obj\Debug\Model.xml
+C:\Users\ASUS\source\repos\HCI_Project\HCI_ProjectDB\obj\Debug\refactor.xml
+C:\Users\ASUS\source\repos\HCI_Project\HCI_ProjectDB\obj\Debug\postdeploy.sql
+C:\Users\ASUS\source\repos\HCI_Project\HCI_ProjectDB\obj\Debug\predeploy.sql

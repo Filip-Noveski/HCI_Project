@@ -1,0 +1,54 @@
+﻿@{
+	ViewData["Title"] = "Checkout";
+	string item = ViewBag.Item;
+}
+
+<link rel="stylesheet" href="~/css/checkout/checkout_light.css" asp-append-version="true" id="light-mode-specific" />
+<script type="text/javascript" src="~/js/checkout/checkout.js"></script>
+<script type="text/javascript" src="~/js/checkout/loadCountries.js"></script>
+<script type="text/javascript" src="~/js/checkout/loadDialCode.js"></script>
+<script type="text/javascript" src="~/js/checkout/validateFields.js"></script>
+<form class="checkout-section">
+	<h3>Shipping details:</h3>
+	<select class="checkout-input" onchange="loadCountries()" id="continent">
+		<option class="checkout-option" value="">--Continent--</option>
+		<option class="checkout-option" value="eu">Europe</option>
+		<option class="checkout-option" value="na">North America</option>
+		<option class="checkout-option" value="sa">South America</option>
+		<option class="checkout-option" value="af">Africa</option>
+		<option class="checkout-option" value="au">Australia & Oceania</option>
+		<option class="checkout-option" value="as">Asia</option>
+	</select>
+	<select class="checkout-input" onchange="loadDialCode()" id="country">
+		<option class="checkout-option" value="">--Country--</option>
+	</select>
+	<input class="checkout-input" type="text" placeholder="Province/County/Municipality..." id="province" />
+	<input class="checkout-input" type="text" placeholder="City..." id="city" />
+	<input class="checkout-input" type="text" placeholder="Address..." id="address" />
+	<input class="checkout-input" type="text" placeholder="ZIP Code..." id="zip" />
+	<input class="checkout-input" type="text" placeholder="First Name..." id="first" />
+	<input class="checkout-input" type="text" placeholder="Last Name..." id="last" />
+	<input class="checkout-input" type="email" placeholder="Email..." id="email" style="width: 92.5%;" />
+	<div class="checkout-flag" id="flag"></div><!--
+	--><input class="checkout-phone-code-select" type="tel" id="phone-code" disabled /><!--
+	--><input class="checkout-phone-number-input" type="tel" placeholder="Phone Number..." id="phone-num" />
+	<p class="invalid-field" style="width: calc(85% - 150px); display: inline-block; margin-bottom: 0;" id="error-text"></p>
+	<a class="btn-shared" asp-controller="Home" asp-action="Pay" onclick="return validateFields()" style="float: right; width: 144px; margin: 2% 5.5%;">Pay</a>
+</form>
+
+<div class="checkout-section" id="checkout-items">
+	
+</div>
+
+@if (item == "cart")
+{
+	<script type="text/javascript">
+		addCartItemsToCheckout();
+	</script>
+}
+else
+{
+	<script type="text/javascript">
+		addItemToCheckout(@item);
+	</script>
+}
